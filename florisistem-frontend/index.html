@@ -33,9 +33,11 @@
         .btn-principal { background-color: #4a6b52; color: white; border: none; padding: 12px; width: 100%; font-size: 16px; font-weight: bold; cursor: pointer; border-radius: 4px; }
         .btn-principal:hover { background-color: #3b5440; }
         .mensaje-bienvenida { text-align: center; margin-top: 50px; font-size: 18px; color: #666; }
+        #signout { position: absolute; top: 10px; right: 10px; background-color: #f4efe6; padding: 10px 15px; border-radius: 5px; display: none; align-items: center; gap: 10px; }
     </style>
 </head>
 <body>
+    <div id="signout"><span>Usuario: <strong id="username">AAA</strong></span><button class='btn-login' onclick='window.location.reload()'>Cerrar sesión</button></div>
     <header>🌸 FloriSistem 🌸</header>
     <nav id="menu-navegacion">
         <button id="btn-nav-cliente" onclick="mostrarSeccion('cliente')">🛒 Vista Cliente (Personalizador)</button>
@@ -154,7 +156,9 @@
                 if(respuesta.ok) {
                     usuarioLogueado = await respuesta.json();
                     alert("¡Bienvenido/a " + usuarioLogueado.nombre + "! Has ingresado con el rol de " + usuarioLogueado.rol + ".");
-                    document.getElementById('bloque-login').innerHTML = "<div><span>Sesión activa: <strong>" + usuarioLogueado.nombre + " (" + usuarioLogueado.rol + ")</strong></span><button class='btn-login' onclick='window.location.reload()'>Salir</button></div>";
+                    document.getElementById('bloque-login').style.display = 'none';
+                    document.getElementById('signout').style.display = 'flex';
+                    document.getElementById('username').innerText = usuarioLogueado.nombre + " (" + usuarioLogueado.rol + ")";
                     document.getElementById('aviso-bloqueado').style.display = 'none';
                     document.getElementById('menu-navegacion').classList.add('visible');
                     document.getElementById('contenedor-principal').classList.add('visible');
